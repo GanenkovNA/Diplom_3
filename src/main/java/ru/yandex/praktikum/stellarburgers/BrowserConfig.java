@@ -1,4 +1,4 @@
-package ru.yandex.praktikum.infrastructure.browser;
+package ru.yandex.praktikum.stellarburgers;
 
 public class BrowserConfig {
     public static final int DEFAULT_WAIT_TIME = 15;

@@ -7,10 +7,11 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.praktikum.infrastructure.browser.DriverFactory;
 
+import static ru.yandex.praktikum.stellarburgers.pom.HeaderPom.BASE_URI;
+
 public class StellarBurgerBase {
-    public static final String BROWSER = "yandex";
+    public static final String BROWSER = "chrome";
     protected WebDriver driver;
-    protected static final String BASE_URI="https://stellarburgers.nomoreparties.site";
     protected final SoftAssertions softly = new SoftAssertions();
 
     @Before
@@ -19,7 +20,7 @@ public class StellarBurgerBase {
         RestAssured.baseURI = BASE_URI;
     }
 
-    @After
+    //@After
     public void tearDown() {
         DriverFactory.closeDriver(driver);
     }
