@@ -20,7 +20,7 @@ public class StellarBurgerBase {
         RestAssured.baseURI = BASE_URI;
     }
 
-    //@After
+    @After
     public void tearDown() {
         DriverFactory.closeDriver(driver);
     }
