@@ -30,9 +30,9 @@ public class RegisterNewUserTest extends WebBase {
 
     @Test
     public void shouldRegisterUser(){
-        registerPage.openRegisterPage();
+        registerPage.openPage();
         registerPage.fillOutRegistrationFormAndClick(testUser.getName(), testUser.getEmail(), testUser.getPassword());
-        isPageLoaded(authorizationPage::isAuthorizationPageLoaded, authorizationPage.getPageName());
+        isPageLoaded(authorizationPage::isPageLoaded, authorizationPage.getPageName());
 
         userBase.authorizeTestUser();
         testUser = userBase.getUser();

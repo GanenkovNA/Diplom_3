@@ -43,8 +43,8 @@ public class RegisterUserWithSmallPasswordTest extends WebBase {
 
     @Test
     public void shouldDisplayPasswordError(){
-        registerPage.openRegisterPage();
-        isPageLoaded(registerPage::isRegisterPageLoaded, registerPage.getPageName());
+        registerPage.openPage();
+        isPageLoaded(registerPage::isPageLoaded, registerPage.getPageName());
 
         registerPage.fillOutRegistrationFormAndClick(userDto.getName(), userDto.getEmail(), userDto.getPassword());
 

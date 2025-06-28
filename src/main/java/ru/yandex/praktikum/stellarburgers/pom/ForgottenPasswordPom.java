@@ -11,21 +11,21 @@ import java.time.Duration;
 
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
-public class ConstructorPom extends HeaderPom implements PageMethods {
-    private static final String pageName = "Домашняя страница (конструктор)";
-    private static final String PATH = BASE_URI;
+public class ForgottenPasswordPom extends HeaderPom implements PageMethods {
+    private static final String pageName = "Восстановление пароля";
+    public static final String PATH = BASE_URI + "/forgot-password";
 
-    private static final By ingredientsBlockLocator = By.xpath("//section[contains(@class, 'BurgerIngredients_ingredients')]");
-    private static final By authButtonLocator = By.xpath("//button[contains(@class, 'button_button') and contains(text(), 'Войти в аккаунт')]");
+    private static final By forgottenPasswordTitleLocator = By.xpath("//h2[contains(text(), 'Регистрация')]");
+    private static final By authButtonLocator = By.xpath("//a[contains(@class, 'Auth_link') and contains(text(), 'Войти')]");
 
-    public ConstructorPom(WebDriver driver) {
+    public ForgottenPasswordPom(WebDriver driver) {
         super(driver);
     }
 
     @Override
     public void isPageLoaded() {
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_TIME))
-                .until(ExpectedConditions.visibilityOfElementLocated(ingredientsBlockLocator));
+                .until(ExpectedConditions.visibilityOfElementLocated(forgottenPasswordTitleLocator));
     }
 
     @Override

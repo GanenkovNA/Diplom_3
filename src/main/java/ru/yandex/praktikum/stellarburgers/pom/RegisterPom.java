@@ -5,15 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.praktikum.stellarburgers.pom.base.HeaderPom;
+import ru.yandex.praktikum.stellarburgers.pom.base.PageMethods;
 
 import java.time.Duration;
 import java.util.List;
 
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
-public class RegisterPom extends ConstructorPom {
+public class RegisterPom extends HeaderPom implements PageMethods {
     private static final String pageName = "Регистрация";
-    public static final String REGISTER_PATH = BASE_URI + "/register";
+    public static final String PATH = BASE_URI + "/register";
 
     private static final By authButtonLocator = By.xpath("//a[contains(@class, 'Auth_link') and contains(text(), 'Войти')]");
     //Локаторы формы регистрации
@@ -28,14 +30,16 @@ public class RegisterPom extends ConstructorPom {
         super(driver);
     }
 
-    public void isRegisterPageLoaded(){
+    @Override
+    public void isPageLoaded() {
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_TIME))
                 .until(ExpectedConditions.visibilityOfElementLocated(registrationTitleLocator));
     }
 
-    public void openRegisterPage(){
-        driver.get(REGISTER_PATH);
-        isRegisterPageLoaded();
+    @Override
+    public void openPage() {
+        driver.get(PATH);
+        isPageLoaded();
     }
 
     public void inputName(String name){
@@ -74,6 +78,7 @@ public class RegisterPom extends ConstructorPom {
         return !elements.isEmpty() && elements.get(0).isDisplayed();
     }
 
+    @Override
     public String getPageName(){
         return pageName;
     }
