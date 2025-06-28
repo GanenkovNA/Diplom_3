@@ -1,5 +1,8 @@
 package ru.yandex.praktikum.stellarburgers_test.web.authorization;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.After;
 import org.junit.Before;
@@ -14,8 +17,10 @@ import ru.yandex.praktikum.stellarburgers_test.web.WebBase;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static io.qameta.allure.Allure.step;
 import static ru.yandex.praktikum.infrastructure.allure.CatchTearDownFail.catchTearDownFail;
 
+@DisplayName("Авторизация пользователя")
 @RunWith(Parameterized.class)
 public class AuthorizeUserTest extends WebBase {
     private UserDto testUser;
@@ -35,10 +40,10 @@ public class AuthorizeUserTest extends WebBase {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<String> data() {
         return Arrays.asList(
-                "вход по кнопке «Войти в аккаунт» на главной",
-                "вход через кнопку «Личный кабинет»",
-                "вход через кнопку в форме регистрации",
-                "вход через кнопку в форме восстановления пароля");
+                "Вход по кнопке «Войти в аккаунт» на главной",
+                "Вход через кнопку «Личный кабинет»",
+                "Вход через кнопку в форме регистрации",
+                "Вход через кнопку в форме восстановления пароля");
     }
 
     @Before
@@ -52,39 +57,56 @@ public class AuthorizeUserTest extends WebBase {
         profilePage = new ProfilePom(driver);
     }
 
+    @Description("Проверка возможности авторизации из разных начальных точек ")
     @Test
     public void shouldAuthoriseUser(){
+        Allure.getLifecycle().updateTestCase(testResult ->
+                testResult.setName(authMethod));
+
         switch (authMethod){
-            case "вход по кнопке «Войти в аккаунт» на главной":
+            case "Вход по кнопке «Войти в аккаунт» на главной":
                 authViaConstructorPage();
                 break;
-            case "вход через кнопку «Личный кабинет»":
+            case "Вход через кнопку «Личный кабинет»":
                 authViaHeaderButton();
                 break;
-            case "вход через кнопку в форме регистрации":
+            case "Вход через кнопку в форме регистрации":
                 authViaRegistrationPage();
                 break;
-            case "вход через кнопку в форме восстановления пароля":
+            case "Вход через кнопку в форме восстановления пароля":
                 authViaForgottenPasswordPage();
                 break;
         }
 
-        isPageLoaded(authorizationPage::isPageLoaded, authorizationPage.getPageName());
-        authorizationPage.fillOutAuthorizationFormAndClick(testUser.getEmail(), testUser.getPassword());
+        step("Проверка перехода на страницу авторизации", () ->
+                isPageLoaded(authorizationPage::isPageLoaded, authorizationPage.getPageName())
+        );
 
-        isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());
-        constructorPage.clickAccountHeaderButton();
+        step("Заполнение формы авторизации и переход на следующую страницу", () ->
+            authorizationPage.fillOutAuthorizationFormAndClick(testUser.getEmail(), testUser.getPassword())
+        );
+        step("Проверка перехода на домашнюю страницу", () ->
+                isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName())
+        );
 
-        isPageLoaded(profilePage::isPageLoaded, profilePage.getPageName());
+        step("Нажатие на кнопку \"Личный кабинет\"", () ->
+                constructorPage.clickAccountHeaderButton()
+        );
 
-        soft.assertThat(profilePage.getProfileEmail())
-                .as("Проверка указанного в профиле email")
-                .isEqualTo(testUser.getEmail());
+        step("Проверка загрузки страницы личного кабинета", () ->
+                isPageLoaded(profilePage::isPageLoaded, profilePage.getPageName())
+        );
 
-        soft.assertThat(profilePage.getProfileName())
-                .as("Проверка указанного в профиле имени")
-                .isEqualTo(testUser.getName());
-        soft.assertAll();
+        step("Проверка данных пользователя в личном кабинете", () -> {
+            soft.assertThat(profilePage.getProfileEmail())
+                    .as("Проверка указанного в профиле email")
+                    .isEqualTo(testUser.getEmail());
+
+            soft.assertThat(profilePage.getProfileName())
+                    .as("Проверка указанного в профиле имени")
+                    .isEqualTo(testUser.getName());
+            soft.assertAll();
+        });
     }
 
     @After
@@ -95,29 +117,52 @@ public class AuthorizeUserTest extends WebBase {
     }
 
     private void authViaConstructorPage(){
-        constructorPage.openPage();
-        isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());
-        constructorPage.clickAuthButton();
+        step("Открытие домашней страницы",() -> {
+            constructorPage.openPage();
+            isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());
+        });
+
+        step("Нажатие на кнопку \"Войти в аккаунт\"", () ->
+                constructorPage.clickAuthButton()
+        );
+
     }
 
     private void authViaHeaderButton(){
-        constructorPage.openPage();
-        isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());
-        constructorPage.clickAccountHeaderButton();
+        step("Открытие домашней страницы",() -> {
+            constructorPage.openPage();
+            isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());
+        });
+
+        step("Нажатие на кнопку \"Личный кабинет\"", () ->
+                constructorPage.clickAccountHeaderButton()
+        );
     }
 
     private void authViaRegistrationPage(){
         RegisterPom registerPage = new RegisterPom(driver);
-        registerPage.openPage();
-        isPageLoaded(registerPage::isPageLoaded, constructorPage.getPageName());
-        registerPage.clickAuthButton();
+
+        step("Открытие страницы регистрации",() -> {
+            registerPage.openPage();
+            isPageLoaded(registerPage::isPageLoaded, registerPage.getPageName());
+        });
+
+        step("Нажатие на кнопку \"Войти\"",
+                registerPage::clickAuthButton
+        );
     }
 
     private void authViaForgottenPasswordPage(){
         ForgottenPasswordPom forgottenPasswordPage =new ForgottenPasswordPom(driver);
-        forgottenPasswordPage.openPage();
-        isPageLoaded(forgottenPasswordPage::isPageLoaded, forgottenPasswordPage.getPageName());
-        forgottenPasswordPage.clickAuthButton();
+
+        step("Открытие страницы восстановления пароля",() -> {
+            forgottenPasswordPage.openPage();
+            isPageLoaded(forgottenPasswordPage::isPageLoaded, forgottenPasswordPage.getPageName());
+        });
+
+        step("Нажатие на кнопку \"Войти\"",
+                forgottenPasswordPage::clickAuthButton
+        );
     }
 
 }

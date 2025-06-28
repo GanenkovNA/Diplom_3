@@ -9,7 +9,7 @@ import ru.yandex.praktikum.infrastructure.browser.Browser;
 import ru.yandex.praktikum.stellarburgers_test.StellarBurgerBase;
 
 public class WebBase extends StellarBurgerBase {
-    public static final Browser BROWSER = Browser.CHROME;
+    public static final Browser BROWSER = Browser.YANDEX;
     protected WebDriver driver;
 
     @Before
