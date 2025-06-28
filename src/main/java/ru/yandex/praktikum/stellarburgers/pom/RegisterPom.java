@@ -11,7 +11,8 @@ import java.util.List;
 
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
-public class RegisterPom extends HeaderPom {
+public class RegisterPom extends ConstructorPom {
+    private static final String pageName = "Регистрация";
     public static final String REGISTER_PATH = BASE_URI + "/register";
 
     private static final By authButtonLocator = By.xpath("//a[contains(@class, 'Auth_link') and contains(text(), 'Войти')]");
@@ -71,5 +72,9 @@ public class RegisterPom extends HeaderPom {
     public boolean isPasswordErrorDisplayed(){
         List<WebElement> elements = driver.findElements(passwordErrorLocator);
         return !elements.isEmpty() && elements.get(0).isDisplayed();
+    }
+
+    public String getPageName(){
+        return pageName;
     }
 }

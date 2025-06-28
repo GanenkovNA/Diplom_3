@@ -9,7 +9,8 @@ import java.time.Duration;
 
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
-public class ProfilePom extends HeaderPom{
+public class ProfilePom extends ConstructorPom{
+    private static final String pageName = "Личный кабинет";
     public static final String PROFILE_PATH = BASE_URI + "/account/profile";
 
     private static final By profileBlockLocator = By.xpath("//div[contains(@class, 'Account_contentBox')]");
@@ -38,5 +39,9 @@ public class ProfilePom extends HeaderPom{
     public String getProfileEmail(){
         return driver.findElement(emailInputFieldLocator)
                 .getAttribute("value");
+    }
+
+    public String getPageName(){
+        return pageName;
     }
 }

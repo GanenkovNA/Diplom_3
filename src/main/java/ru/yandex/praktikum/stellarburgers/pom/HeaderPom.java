@@ -10,7 +10,6 @@ import java.time.Duration;
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
 public class HeaderPom {
-    public static final String BASE_URI="https://stellarburgers.nomoreparties.site";
     protected final WebDriver driver;
 
     //Локаторы элементов шапки
@@ -21,16 +20,6 @@ public class HeaderPom {
 
     public HeaderPom(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public void isMainPageLoaded(){
-        new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_TIME))
-                .until(ExpectedConditions.visibilityOfElementLocated(logoLocator));
-    }
-
-    public void openMainPage(){
-        driver.get(BASE_URI);
-        isMainPageLoaded();
     }
 
     public void clickConstructorButton(){

@@ -9,7 +9,8 @@ import java.time.Duration;
 
 import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
 
-public class AuthorizationPom extends HeaderPom{
+public class AuthorizationPom extends ConstructorPom{
+    private static final String pageName = "Вход (страница авторизации)";
     public static final String AUTH_PATH = BASE_URI + "/login";
 
     //Локаторы формы регистрации
@@ -50,5 +51,9 @@ public class AuthorizationPom extends HeaderPom{
         inputEmail(email);
         inputPassword(password);
         clickOnAuthorizationButton();
+    }
+
+    public String getPageName(){
+        return pageName;
     }
 }

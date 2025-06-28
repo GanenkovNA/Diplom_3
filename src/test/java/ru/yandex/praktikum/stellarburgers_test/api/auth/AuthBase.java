@@ -6,12 +6,12 @@ import io.restassured.response.Response;
 import net.datafaker.Faker;
 import ru.yandex.praktikum.stellarburgers.dto.auth.UserAuthorizationResponseDto;
 import ru.yandex.praktikum.stellarburgers.dto.auth.UserDto;
+import ru.yandex.praktikum.stellarburgers.dto.auth.UserRegistrationResponseDto;
 import ru.yandex.praktikum.stellarburgers_test.StellarBurgerBase;
 
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
 import static org.apache.http.HttpStatus.SC_OK;
-import static ru.yandex.praktikum.stellarburgers_test.api.auth.AuthService.deleteUser;
-import static ru.yandex.praktikum.stellarburgers_test.api.auth.AuthService.authorizeUser;
+import static ru.yandex.praktikum.stellarburgers_test.api.auth.AuthService.*;
 
 public class AuthBase extends StellarBurgerBase {
     private UserDto testUser;
@@ -22,11 +22,21 @@ public class AuthBase extends StellarBurgerBase {
         testUser = UserDto.builder()
                 .email(faker.internet().emailAddress())
                 .password(faker.internet().password())
-                .name(faker.name().name())
+                .name(faker.name().firstName())
                 .build();
 
         Allure.addAttachment("Информация о пользователе", "text/plain",
                 "Email: " + testUser.getEmail() + "\nPassword: " + testUser.getPassword());
+    }
+
+    @Step("Регистрация тестового пользователя")
+    public void registerTestUser(){
+        Response response = registerUser(testUser);
+        response.then().statusCode(SC_OK);
+
+        UserRegistrationResponseDto responseBody = response.as(UserRegistrationResponseDto.class);
+        testUser.setAccessToken(responseBody.getAccessToken());
+        testUser.setRefreshToken(responseBody.getRefreshToken());
     }
 
     @Step("Авторизация тестового пользователя")

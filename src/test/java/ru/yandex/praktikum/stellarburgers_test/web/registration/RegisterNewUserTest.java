@@ -7,16 +7,16 @@ import org.junit.Test;
 import ru.yandex.praktikum.stellarburgers.dto.auth.UserDto;
 import ru.yandex.praktikum.stellarburgers.pom.AuthorizationPom;
 import ru.yandex.praktikum.stellarburgers.pom.RegisterPom;
-import ru.yandex.praktikum.stellarburgers_test.StellarBurgerBase;
 import ru.yandex.praktikum.stellarburgers_test.api.auth.AuthBase;
+import ru.yandex.praktikum.stellarburgers_test.web.WebBase;
 
 import static ru.yandex.praktikum.infrastructure.allure.CatchTearDownFail.catchTearDownFail;
 
-public class RegisterNewUserTest extends StellarBurgerBase {
+public class RegisterNewUserTest extends WebBase {
     private UserDto testUser;
     private RegisterPom registerPage;
+    private AuthorizationPom authorizationPage;
     private final AuthBase userBase = new AuthBase();
-    AuthorizationPom authorizationPage;
 
     @Before
     public void setUpTest(){
@@ -32,15 +32,11 @@ public class RegisterNewUserTest extends StellarBurgerBase {
     public void shouldRegisterUser(){
         registerPage.openRegisterPage();
         registerPage.fillOutRegistrationFormAndClick(testUser.getName(), testUser.getEmail(), testUser.getPassword());
-        try{
-            authorizationPage.isAuthorizationPageLoaded();
-        } catch (Exception e){
-            Assert.fail("Не произведён переход на страницу авторизации! Страница не загрузилась!");
-        }
+        isPageLoaded(authorizationPage::isAuthorizationPageLoaded, authorizationPage.getPageName());
 
         userBase.authorizeTestUser();
         testUser = userBase.getUser();
-        Assert.assertNotNull("Не получилось авторизовать пользователя!", testUser.getAccessToken());
+        Assert.assertNotNull("Не получилось авторизовать пользователя!\nНе был получен accessToken через API", testUser.getAccessToken());
     }
 
     @After
@@ -49,5 +45,4 @@ public class RegisterNewUserTest extends StellarBurgerBase {
             catchTearDownFail(userBase::deleteTestUser);
         }
     }
-
 }
