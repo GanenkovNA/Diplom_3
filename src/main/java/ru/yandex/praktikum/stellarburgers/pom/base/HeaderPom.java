@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
+import static ru.yandex.praktikum.stellarburgers.browser.BrowserConfig.DEFAULT_WAIT_TIME;
 
 public class HeaderPom {
     protected final WebDriver driver;
@@ -29,7 +29,7 @@ public class HeaderPom {
                 .click();
     }
 
-    public void clickOrderHeaderFeedButton(){
+    public void clickOrderFeedHeaderButton(){
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_TIME))
                 .until(ExpectedConditions.elementToBeClickable(orderFeedHeaderButtonLocator))
                 .click();

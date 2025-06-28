@@ -9,7 +9,7 @@ import ru.yandex.praktikum.stellarburgers.pom.base.PageMethods;
 
 import java.time.Duration;
 
-import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
+import static ru.yandex.praktikum.stellarburgers.browser.BrowserConfig.DEFAULT_WAIT_TIME;
 
 public class ProfilePom extends HeaderPom implements PageMethods {
     private static final String pageName = "Личный кабинет";

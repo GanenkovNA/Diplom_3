@@ -5,10 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.praktikum.infrastructure.browser.DriverFactory;
+import ru.yandex.praktikum.infrastructure.browser.Browser;
 import ru.yandex.praktikum.stellarburgers_test.StellarBurgerBase;
 
 public class WebBase extends StellarBurgerBase {
-    public static final String BROWSER = "chrome";
+    public static final Browser BROWSER = Browser.CHROME;
     protected WebDriver driver;
 
     @Before

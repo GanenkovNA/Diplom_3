@@ -9,13 +9,13 @@ import ru.yandex.praktikum.stellarburgers.pom.base.PageMethods;
 
 import java.time.Duration;
 
-import static ru.yandex.praktikum.stellarburgers.BrowserConfig.DEFAULT_WAIT_TIME;
+import static ru.yandex.praktikum.stellarburgers.browser.BrowserConfig.DEFAULT_WAIT_TIME;
 
 public class ForgottenPasswordPom extends HeaderPom implements PageMethods {
     private static final String pageName = "Восстановление пароля";
     public static final String PATH = BASE_URI + "/forgot-password";
 
-    private static final By forgottenPasswordTitleLocator = By.xpath("//h2[contains(text(), 'Регистрация')]");
+    private static final By forgottenPasswordTitleLocator = By.xpath("//h2[contains(text(), 'Восстановление пароля')]");
     private static final By authButtonLocator = By.xpath("//a[contains(@class, 'Auth_link') and contains(text(), 'Войти')]");
 
     public ForgottenPasswordPom(WebDriver driver) {
