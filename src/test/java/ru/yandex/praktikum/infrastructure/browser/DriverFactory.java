@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
-import static ru.yandex.praktikum.stellarburgers.browser.BrowserConfig.DEFAULT_IMPLICIT_WAIT;
+import static ru.yandex.praktikum.burgers.browser.BrowserConfig.DEFAULT_IMPLICIT_WAIT;
 
 public class DriverFactory {
     private static final String YANDEX_PATH = "C:\\Users\\Kit\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe";
