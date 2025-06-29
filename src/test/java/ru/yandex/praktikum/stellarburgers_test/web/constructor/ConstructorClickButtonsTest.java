@@ -25,7 +25,7 @@ public class ConstructorClickButtonsTest extends WebBase {
     @Description("При нажатии:\n" +
             "* кнопки должны становиться активными\n" +
             "* список должен прокручиваться на выбранную категорию")
-    public void shouldShowIngredients(){
+    public void shouldShowIngredientsTest(){
         step("Открытие домашней страницы",() -> {
             constructorPage.openPage();
             isPageLoaded(constructorPage::isPageLoaded, constructorPage.getPageName());

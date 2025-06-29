@@ -59,7 +59,7 @@ public class AuthorizeUserTest extends WebBase {
 
     @Description("Проверка возможности авторизации из разных начальных точек ")
     @Test
-    public void shouldAuthoriseUser(){
+    public void shouldAuthoriseUserTest(){
         Allure.getLifecycle().updateTestCase(testResult ->
                 testResult.setName(authMethod));
 

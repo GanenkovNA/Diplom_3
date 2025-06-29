@@ -37,7 +37,7 @@ public class RegisterNewUserTest extends WebBase {
             "* регистрация нового пользователя через web-интерфейс \n" +
             "* проверка его создания через API")
     @Test
-    public void shouldRegisterUser(){
+    public void shouldRegisterUserTest(){
         step("Открытие страницы регистрации",() -> {
             registerPage.openPage();
             registerPage.isPageLoaded();

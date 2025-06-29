@@ -50,7 +50,7 @@ public class RegisterUserWithSmallPasswordTest extends WebBase {
 
     @Description("При введении пароля длиной в 1-6 символов должна отображаться ошибка \"Некорректный пароль\"")
     @Test
-    public void shouldDisplayPasswordError(){
+    public void shouldDisplayPasswordErrorTest(){
         Allure.getLifecycle().updateTestCase(testResult ->
                 testResult.setName("Длина пароля: " + passwordLength));
 
