@@ -33,34 +33,34 @@ public class ConstructorClickButtonsTest extends WebBase {
 
         step("Проверка кнопки \"Начинка\"", () -> {
             constructorPage.clickFillingButton();
-            soft.assertThat(constructorPage.isFillingButtonActive())
-                    .as("Проверка, что кнопка \"Начинка\" активна")
-                    .isTrue();
             soft.assertThat(
                             isElementVisibleOnScreen(constructorPage.isFillingListHeaderDisplayed()))
                     .as("Проверка, что заголовок \"Начинка\" отображается на экране")
+                    .isTrue();
+            soft.assertThat(constructorPage.isFillingButtonActive())
+                    .as("Проверка, что кнопка \"Начинка\" активна")
                     .isTrue();
         });
 
         step("Проверка кнопки \"Соус\"", () -> {
             constructorPage.clickSauceButton();
-            soft.assertThat(constructorPage.isSauceButtonActive())
-                    .as("Проверка, что кнопка \"Соус\" активна")
-                    .isTrue();
             soft.assertThat(
                             isElementVisibleOnScreen(constructorPage.isSauceListHeaderDisplayed()))
                     .as("Проверка, что заголовок \"Соус\" отображается на экране")
+                    .isTrue();
+            soft.assertThat(constructorPage.isSauceButtonActive())
+                    .as("Проверка, что кнопка \"Соус\" активна")
                     .isTrue();
         });
 
         step("Проверка кнопки \"Булки\"", () -> {
             constructorPage.clickBunButton();
-            soft.assertThat(constructorPage.isBunButtonActive())
-                    .as("Проверка, что кнопка \"Булки\" активна")
-                    .isTrue();
             soft.assertThat(
                             isElementVisibleOnScreen(constructorPage.isBunListHeaderDisplayed()))
                     .as("Проверка, что заголовок \"Булки\" отображается на экране")
+                    .isTrue();
+            soft.assertThat(constructorPage.isBunButtonActive())
+                    .as("Проверка, что кнопка \"Булки\" активна")
                     .isTrue();
         });
 
